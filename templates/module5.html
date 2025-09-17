@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Module 5 Quiz</title>
+<style>
+body { font-family: Arial; background:#f0f8ff; text-align:center; padding-top:50px;}
+.quiz-box { background:white; padding:30px; margin:auto; width:60%; border-radius:12px; box-shadow:2px 2px 12px rgba(0,0,0,0.2);}
+button { padding:10px 20px; font-size:16px; border:none; border-radius:8px; background:#007bff; color:white; cursor:pointer; margin-top:20px;}
+button:hover { background:#0056b3;}
+.option { 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    margin: 10px 0; 
+    gap: 10px;
+}
+audio { margin-bottom:20px; width:100%; }
+</style>
+</head>
+<body>
+
+<div class="quiz-box">
+<h2>Module 5 Quiz</h2>
+
+{% if start_audio %}
+<audio id="audio" controls autoplay>
+    <source src="{{ url_for('static', filename='audio/audio1.mp3') }}" type="audio/mp3">
+    Your browser does not support audio.
+</audio>
+<form method="POST" action="{{ url_for('module5_question') }}" id="quizForm" style="display:none;">
+    <button type="submit">Start Quiz</button>
+</form>
+<script>
+const audio = document.getElementById("audio");
+const quizForm = document.getElementById("quizForm");
+audio.onended = function() { quizForm.style.display = "block"; };
+</script>
+
+{% else %}
+<form method="POST" action="{{ url_for('module5_question') }}">
+<p><strong>Question {{ q_no }} / {{ total }}</strong></p>
+<p><b>{{ question_en }}</b></p>
+<p><i>{{ question_local }}</i></p>
+{% for opt in options %}
+<label class="option"><input type="radio" name="option" value="{{ opt }}" required> {{ opt }}</label>
+{% endfor %}
+<button type="submit">Next</button>
+</form>
+{% endif %}
+
+</div>
+</body>
+</html>
