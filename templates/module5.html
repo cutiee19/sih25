@@ -25,7 +25,7 @@ audio { margin-bottom:20px; width:100%; }
 
 {% if start_audio %}
 <audio id="audio" controls autoplay>
-    <source src="{{ url_for('static', filename='audio/audio1.mp3') }}" type="audio/mp3">
+    <source src="{{ url_for('static', filename='audio1.mp3') }}" type="audio/mp3">
     Your browser does not support audio.
 </audio>
 <form method="POST" action="{{ url_for('module5_question') }}" id="quizForm" style="display:none;">
