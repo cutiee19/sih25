@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Sign Up</title>
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: #f0f0f0;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  width: 360px;
+  margin: 60px auto;
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,.1);
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+input, button {
+  width: 100%;
+  box-sizing: border-box;
+  margin: 8px 0;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 15px;
+}
+
+button {
+  background: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+button:hover {
+  background: #0056b3;
+}
+
+.msg {
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+.msg.success { background: #e6ffef; color: #0a6a3b; }
+.msg.danger  { background: #f79999; color: #a90a0a; }
+.msg.info    { background: #b1c9ef; color: #0a4da9; }
+
+#otpError, #passwordError {
+  color: red;
+  font-size: 13px;
+  margin: 4px 0;
+}
+
+.password-section {
+  display: none; /* Hidden until OTP is verified */
+}
+
+p {
+  text-align: center;
+  margin-top: 12px;
+  font-size: 14px;
+}
+
+p a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+p a:hover {
+  text-decoration: underline;
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <h2>Sign Up</h2>
+
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      {% for category, message in messages %}
+        <div class="msg {{ category }}">{{ message }}</div>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+
+  <form id="signupForm" action="{{ url_for('signup') }}" method="POST" onsubmit="return validateForm()">
+    <input type="text" name="name" placeholder="Full name" 
+     value="{{session.get('signup_name','')}}" required>
+    <input type="email" id="email" name="email" placeholder="Email" 
+    value="{{session.get('signup_email','')}}" required>
+
+    <!-- OTP Section -->
+    <input type="text" id="otpInput" name="otp" placeholder="Enter OTP">
+    <div id="otpError" style="display:none;"></div>
+
+    <button type="button" onclick="sendOtp()">Send OTP</button>
+    <button type="button" onclick="resendOtp()">Resend OTP</button>
+    <button type="button" onclick="submitOtp()">Submit OTP</button>
+
+    <!-- Password Section -->
+    <div class="password-section" id="passwordSection">
+      <input type="password" id="password" name="password" placeholder="Password" required>
+      <input type="password" id="confirmPassword" name="confirm_password" placeholder="Confirm Password" required>
+      <div id="passwordError"></div>
+      <button type="submit">Sign Up</button>
+    </div>
+  </form>
+
+  <p>Already have an account? <a href="{{ url_for('home') }}">Login</a></p>
+</div>
+
+<script>
+let otpVerified = false;
+
+// Send OTP
+function sendOtp() {
+  document.getElementById('signupForm').action = "{{ url_for('send_otp') }}";
+  document.getElementById('signupForm').submit();
+}
+
+// Resend OTP
+function resendOtp() {
+  sendOtp();
+  document.getElementById('otpError').style.display = 'none';
+  document.getElementById('otpInput').value = '';
+  otpVerified = false;
+  document.getElementById('passwordSection').style.display = 'none';
+}
+
+// Submit OTP
+function submitOtp() {
+  const enteredOtp = document.getElementById('otpInput').value;
+  if (enteredOtp.trim() === "") {
+    document.getElementById('otpError').innerText = "Please enter OTP.";
+    document.getElementById('otpError').style.display = 'block';
+    otpVerified = false;
+    return;
+  }
+
+  otpVerified = true; // assume OTP verified
+  document.getElementById('otpError').style.display = 'none';
+  document.getElementById('passwordSection').style.display = 'block';
+  alert("OTP Verified! Now set your password.");
+}
+
+// Validate passwords
+function validateForm() {
+  if (!otpVerified) {
+    alert("Please verify your OTP first.");
+    return false;
+  }
+  const pass = document.getElementById('password').value;
+  const confirmPass = document.getElementById('confirmPassword').value;
+  if (pass !== confirmPass) {
+    document.getElementById('passwordError').innerText = "Passwords do not match!";
+    return false;
+  }
+  return true;
+}
+</script>
+</body>
+</html>
