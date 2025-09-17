@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Module 2 - Vocabulary</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f0f8ff;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .header h2 {
+            margin: 0;
+            color: #333;
+        }
+
+        .back-btn {
+            text-decoration: none;
+            background: #e74c3c;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        .back-btn:hover {
+            background: #e74c3c;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th {
+            background: #007BFF;
+            color: white;
+            padding: 10px;
+            text-align: left;
+        }
+
+        td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            height: 32px;
+            line-height: 1.5;
+            vertical-align: middle;
+        }
+
+        tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h2>Vocabulary - Module 2</h2>
+            <a href="{{ url_for('page2') }}" class="back-btn">Back</a>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>English</th>
+                    <th>{{ selected_label }}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for word in vocabulary %}
+                <tr>
+                    <td>{{ word.en }}</td>
+                    <td>{{ word[selected_key] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
