@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Quiz Result</title>
+  <style>
+    body { font-family: Arial, sans-serif; background:#f0f8ff; text-align:center; padding-top:100px; }
+    .box { background:white; padding:40px; border-radius:12px; width:400px; margin:auto; box-shadow:2px 2px 12px rgba(0,0,0,0.2); }
+    h1 { color:#007bff; }
+    p { font-size:18px; }
+    a { display:inline-block; margin-top:20px; padding:10px 20px; background:#007bff; color:white; border-radius:6px; text-decoration:none; }
+    a:hover { background:#0056b3; }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h1>Quiz Completed!</h1>
+    <p>Your Score: <b>{{ score }}</b> / {{ total }}</p>
+    <a href="{{ url_for('page2') }}">Back</a>
+  </div>
+</body>
+</html>
