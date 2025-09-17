@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Module 4 Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f0f8ff;
+            text-align: center;
+            padding-top: 50px;
+        }
+        .quiz-box {
+            background: white;
+            padding: 30px;
+            margin: auto;
+            width: 60%;
+            border-radius: 12px;
+            box-shadow: 2px 2px 12px rgba(0,0,0,0.2);
+        }
+        h2 {
+            margin-bottom: 20px;
+        }
+        .question-en {
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .question-local {
+            font-size: 16px;
+            color: #444;
+            font-style: italic;
+            margin-bottom: 20px;
+        }
+        .option {
+            margin: 10px 0;
+            text-align: left;
+            display: inline-block;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 8px;
+            background: #007bff;
+            color: white;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="quiz-box">
+        <h2>Question {{ q_no }} of {{ total }}</h2>
+        
+        <p class="question-en">{{ question_en }}</p>
+        <p class="question-local">{{ question_local }}</p>
+        
+        <form method="POST">
+            {% for opt in options %}
+                <div class="option">
+                    <input type="radio" name="option" value="{{ opt }}" id="opt{{ loop.index }}" required>
+                    <label for="opt{{ loop.index }}">{{ opt }}</label>
+                </div><br>
+            {% endfor %}
+            
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+</body>
+</html>
