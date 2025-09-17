@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Module 3</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #f7f7f7; margin: 0; padding: 0; }
+        .container { width: 80%; margin: 20px auto; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px #ccc; }
+        
+        /* Flex container for title + back button */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        h2 { color: #2E86C1; margin: 0; }
+
+        .back-btn { 
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #e74c3c; /* red color */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        .topic { 
+            margin-bottom: 20px; 
+            cursor: pointer; 
+            background-color: #3498db; 
+            color: white; 
+            padding: 20px; 
+            border-radius: 8px; 
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            text-align: center; 
+        }
+        .topic h3 { margin: 0; }
+        .content { display: none; margin-top: 10px; background: #ecf0f1; color: black; padding: 15px; border-radius: 5px; }
+        pre { background: #f0f0f0; padding: 10px; border-radius: 5px; white-space: pre-wrap; }
+        .type-title { font-weight: bold; margin-top: 10px; }
+        strong { font-size: 16px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h2>Grammar Basics</h2>
+            <a href="{{ url_for('page2') }}" class="back-btn">Back</a>
+        </div>
+
+        {% for topic, content in data.items() %}
+        <div class="topic" onclick="toggleContent('{{ topic }}')">
+            <h3>{{ topic }}</h3>
+            <div class="content" id="{{ topic }}">
+                <!-- English first -->
+                <div>
+                    <strong>English:</strong>
+                    <pre>{{ content['English'] }}</pre>
+                    {% for type_name, type_desc in types[topic]['English'].items() %}
+                        <div class="type-title">{{ type_name }}:</div>
+                        <pre>{{ type_desc }}</pre>
+                    {% endfor %}
+                </div>
+
+                <!-- Mother tongue -->
+                <div>
+                    <strong>{{ language }}:</strong>
+                    <pre>{{ content[language] }}</pre>
+                    {% for type_name, type_desc in types[topic][language].items() %}
+                        <div class="type-title">{{ type_name }}:</div>
+                        <pre>{{ type_desc }}</pre>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <script>
+        function toggleContent(id) {
+            const contentDiv = document.getElementById(id);
+            contentDiv.style.display = contentDiv.style.display === "block" ? "none" : "block";
+        }
+    </script>
+</body>
+</html>
