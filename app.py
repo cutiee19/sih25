@@ -111,7 +111,7 @@ def get_mysql_cursor(dict_cursor=False):
 
 @app.route('/')
 def home():
-    return render_template('login.html')
+    return render_template('index.html')
 
 # Signup with OTP
 @app.route('/signup', methods=['GET','POST'])
@@ -193,7 +193,7 @@ def login():
             flash("Invalid login credentials", "danger")
             return redirect(url_for('home'))
 
-    return render_template('login.html')
+    return render_template('index.html')
 
 # ---------- DASHBOARD ----------
 @app.route('/dashboard')
