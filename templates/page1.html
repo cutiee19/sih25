@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Page 1</title>
+<style>
+  body { font-family: Arial; margin:0; background:#f0f0f0; }
+
+  /* Top bar */
+  .topbar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    background: #fff;
+    padding: 10px;
+    box-shadow: 0 0 5px rgba(0,0,0,.2);
+  }
+
+  .welcome {
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+    text-align: center;
+  }
+
+  .logout {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 8px 16px;
+    background: #dc3545;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+  }
+  .logout:hover { background:#a71d2a; }
+
+  /* Rectangle box */
+  .rectangle {
+    width: 200px;
+    height: 100px;
+    background: #007bff;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 22px;
+    font-weight: bold;
+    border-radius: 10px;
+    margin-top: 100px;
+    cursor: pointer;
+    transition: background 0.3s;
+    text-decoration: none;
+  }
+  .rectangle:hover {
+    background: #0056b3;
+  }
+</style>
+</head>
+<body>
+<div class="topbar">
+  <div class="welcome"><h2>INDEX</h2></div>
+  <a href="{{ url_for('logout') }}" class="logout">Logout</a>
+</div>
+
+<center>
+  <!-- Rectangle that redirects to Page 2 -->
+  <a href="{{ url_for('page2') }}" class="rectangle">ENGLISH</a>
+</center>
+
+</body>
+</html>
