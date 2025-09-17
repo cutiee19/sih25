@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>English - Modules</title>
+<style>
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f0f0f0;
+    text-align: center;
+  }
+
+  /* Top bar */
+  .topbar {
+    width: 100%;
+    background: #007bff;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 20px;
+    box-sizing: border-box;
+  }
+  .topbar h2 { margin: 0; }
+  .logout {
+    padding: 8px 16px;
+    background: #dc3545;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+  }
+  .logout:hover { background: #c82333; }
+
+  /* Container for modules */
+  .container {
+    display: flex;
+    flex-direction: column; /* stack vertically */
+    align-items: center;
+    margin: 40px auto;
+    max-width: 300px; /* narrower for vertical layout */
+    gap: 20px; /* spacing between modules */
+  }
+
+  /* Module boxes */
+  .module {
+    width: 100%;
+    height: 60px; /* smaller height for vertical stacking */
+    background: white;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 10px rgba(0,0,0,.1);
+    font-size: 18px;
+    font-weight: bold;
+    color: #007bff;
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .module:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 15px rgba(0,0,0,.2);
+  }
+</style>
+</head>
+<body>
+  <!-- Top Bar -->
+  <div class="topbar">
+    <h2>English - Modules</h2>
+    <a href="{{ url_for('logout') }}" class="logout">Logout</a>
+  </div>
+
+  <!-- Module Boxes -->
+  <div class="container">
+    <a href="{{ url_for('module1') }}" class="module">Module 1</a>
+    <a href="{{ url_for('module2') }}" class="module">Module 2</a>
+    <a href="{{ url_for('module3') }}" class="module">Module 3</a>
+    <a href="{{ url_for('module4') }}" class="module">Module 4</a>
+    <a href="{{ url_for('module5') }}" class="module">Module 5</a>
+  </div>
+</body>
+</html>
+</body>
+</html>
